@@ -5,7 +5,7 @@ Utilizei como oportunidade para aprender um pouquinho de SpringBoot e AngularJS 
 
 O ranking leva em conta apenas os maiores títulos: Mundial (inclui Copa do Mundo de Clubes da FIFA e o Intercontinental, disputado até 2004), Continental (os de 1º escalão como Libertadores e Champions League), as Ligas e Copas Nacionais. Os pesos foram simplifcados, 4-3-2-1 respectivamente, que achei bem eficaz.
 
-O resultado pode ser conferido [aqui](web/index.html).
+O resultado pode ser conferido [aqui](https://hamilton-santos.github.io/Ranking-de-Clubes/web/index.html).
 
 ## Créditos
 [ChatGPT](https://chat.openai.com): por me gerar um layout decente em segundos e automatizar o download de vários escudos pela busca do Bing.
