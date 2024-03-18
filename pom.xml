@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.blocoazul</groupId>
-	<artifactId>rankingdeclubes</artifactId>
+	<artifactId>ranking-de-clubes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rankingdeclubes</name>
+	<name>Ranking de Clubes</name>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

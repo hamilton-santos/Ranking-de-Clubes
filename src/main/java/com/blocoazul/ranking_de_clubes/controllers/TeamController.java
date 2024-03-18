@@ -1,4 +1,4 @@
-package com.blocoazul.rankingdeclubes.controllers;
+package com.blocoazul.ranking_de_clubes.controllers;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blocoazul.rankingdeclubes.entities.Team;
-import com.blocoazul.rankingdeclubes.repositories.TeamRepository;
+import com.blocoazul.ranking_de_clubes.entities.Team;
+import com.blocoazul.ranking_de_clubes.repositories.TeamRepository;
 
 @RestController
 public class TeamController {

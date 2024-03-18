@@ -1,4 +1,4 @@
-package com.blocoazul.rankingdeclubes.services;
+package com.blocoazul.ranking_de_clubes.services;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.blocoazul.rankingdeclubes.entities.Country;
-import com.blocoazul.rankingdeclubes.entities.Honour;
-import com.blocoazul.rankingdeclubes.entities.Summary;
-import com.blocoazul.rankingdeclubes.entities.Team;
-import com.blocoazul.rankingdeclubes.repositories.CountryRepository;
-import com.blocoazul.rankingdeclubes.repositories.SummaryRepository;
+import com.blocoazul.ranking_de_clubes.entities.Country;
+import com.blocoazul.ranking_de_clubes.entities.Honour;
+import com.blocoazul.ranking_de_clubes.entities.Summary;
+import com.blocoazul.ranking_de_clubes.entities.Team;
+import com.blocoazul.ranking_de_clubes.repositories.CountryRepository;
+import com.blocoazul.ranking_de_clubes.repositories.SummaryRepository;
 
 @Service
 public class SummaryService {

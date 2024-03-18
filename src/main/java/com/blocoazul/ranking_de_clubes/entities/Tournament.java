@@ -1,4 +1,4 @@
-package com.blocoazul.rankingdeclubes.entities;
+package com.blocoazul.ranking_de_clubes.entities;
 
 import java.io.Serializable;
 import java.util.Set;

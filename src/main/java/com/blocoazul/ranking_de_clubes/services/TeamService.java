@@ -1,12 +1,12 @@
-package com.blocoazul.rankingdeclubes.services;
+package com.blocoazul.ranking_de_clubes.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blocoazul.rankingdeclubes.entities.Team;
-import com.blocoazul.rankingdeclubes.repositories.TeamRepository;
+import com.blocoazul.ranking_de_clubes.entities.Team;
+import com.blocoazul.ranking_de_clubes.repositories.TeamRepository;
 
 @Service
 public class TeamService {

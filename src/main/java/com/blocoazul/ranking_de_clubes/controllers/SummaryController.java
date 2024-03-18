@@ -1,4 +1,4 @@
-package com.blocoazul.rankingdeclubes.controllers;
+package com.blocoazul.ranking_de_clubes.controllers;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -15,10 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blocoazul.rankingdeclubes.entities.Country;
-import com.blocoazul.rankingdeclubes.repositories.CountryRepository;
-import com.blocoazul.rankingdeclubes.services.SummaryService;
-import com.blocoazul.rankingdeclubes.services.TournamentGroupService;
+import com.blocoazul.ranking_de_clubes.entities.Country;
+import com.blocoazul.ranking_de_clubes.repositories.CountryRepository;
+import com.blocoazul.ranking_de_clubes.services.SummaryService;
+import com.blocoazul.ranking_de_clubes.services.TournamentGroupService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
