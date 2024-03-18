@@ -3,13 +3,17 @@ Pequeno projeto que fiz pois tinha curiosidade quanto aos títulos de clubes de 
 
 Utilizei como oportunidade para aprender um pouquinho de SpringBoot e AngularJS (o qual atualmente tenho de utilizar no trabalho).
 
-O ranking leva em conta apenas os maiores títulos: Mundial (inclui Copa do Mundo de Clubes da FIFA e o Intercontinental, disputado até 2004), Continental (os de 1º escalão como Libertadores e Champions League), as Ligas e Copas Nacionais. Os pesos foram simplifcados, 4-3-2-1 respectivamente, que achei bem eficaz.
+![captura de tela do ranking alemão](docs/capturas/captura_1.png)
 
-O resultado pode ser conferido [aqui](https://hamilton-santos.github.io/Ranking-de-Clubes/web/index.html).
+O ranking leva em conta apenas os títulos considerados de primeiro escalão. Mais informações sobre quais competições são consideradas podem ser obtidas no próprio ranking ao clicar nos itens de cabeçalho da tabela.
+
+O resultado pode ser conferido [aqui](https://hamilton-santos.github.io/Ranking-de-Clubes).
 
 ## Créditos
-[ChatGPT](https://chat.openai.com): por me gerar um layout decente em segundos e automatizar o download de vários escudos pela busca do Bing.
+[ChatGPT](https://chat.openai.com): layout html base.
 
-[EscudosFC](https://escudosfc.com.br): por fornecer alguns dos escudos que estou utilizando. Foi a minha principal opção enquanto eram poucos clubes.
+[Sofascore](https://sofascore.com): escudos e nomes de clubes.
 
-[Wikipedia](https://pt.wikipedia.org/): pelos dados dos clubes e campeonatos.
+[SVG Repo](https://svgrepo.com): ícone da página.
+
+[Wikipedia](https://pt.wikipedia.org): dados dos campeonatos.

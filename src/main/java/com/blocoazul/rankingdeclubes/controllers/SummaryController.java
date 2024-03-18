@@ -3,6 +3,8 @@ package com.blocoazul.rankingdeclubes.controllers;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class SummaryController {
 	public ResponseEntity<Map<String, Object>> summary() throws IOException {
 		service.calculate();
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("lastUpdate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm")));
 		map.put("tournaments", tournamentGroupService.findAll());
 		List<Country> countries = countryRepository.findAll();
 		for (Country country : countries) {
@@ -42,7 +45,7 @@ public class SummaryController {
 		}
 		map.put("countries", countries);
 		ResponseEntity<Map<String, Object>> response = ResponseEntity.status(HttpStatus.OK).body(map);
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter("web/data.jsonp", false))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("docs/data.jsonp", false))) {
 			ObjectMapper mapper = new ObjectMapper();
 			writer.append("angular.callbacks._0(");
 			writer.append(mapper.writeValueAsString(response.getBody()));
