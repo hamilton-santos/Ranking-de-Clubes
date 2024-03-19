@@ -78,6 +78,9 @@
 		<select name="countries" id="countries" ng-model="selectedCountry">
 			<option ng-repeat="country in data.countries" value="{{country.id}}">{{country.name}}</option>
 		</select>
+		<select name="years" id="years" ng-model="selectedYear">
+			<option ng-repeat="year in data.years track by $index" value="{{year}}">{{year}}</option>
+		</select>
     </header>
     <div class="container">
         <table>
@@ -93,7 +96,7 @@
                 </tr>
             </thead>
             <tbody ng-repeat="country in data.countries" ng-if="country.id == selectedCountry">
-                <tr ng-repeat="team in country.rows">
+                <tr ng-repeat="team in country.rows" ng-if="team.season == selectedYear">
                     <td class="posicao {{team.classe}}">{{team.position}}º</td>
                     <td class="clube"><img src="img/{{team.team.logo}}" alt="Escudo do Clube">{{team.team.name}}</td>
 					<td ng-repeat="num in team.honours track by $index">{{num}}</td>

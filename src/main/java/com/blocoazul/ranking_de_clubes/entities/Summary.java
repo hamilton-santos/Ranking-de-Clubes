@@ -25,7 +25,7 @@ public class Summary implements Serializable {
 	@JsonIgnore
 	private Integer id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
 	
@@ -33,6 +33,8 @@ public class Summary implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="country_id")
 	private Country country;
+	
+	private Integer season;
 	
 	@Transient
 	private int position;
@@ -99,7 +101,14 @@ public class Summary implements Serializable {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-	
+
+	public Integer getSeason() {
+		return season;
+	}
+
+	public void setSeason(Integer season) {
+		this.season = season;
+	}
 	
 
 }

@@ -28,7 +28,7 @@ public class Honour implements Serializable {
 	@JoinColumn(name="tournament_id")
 	private Tournament tournament;
 	
-	private String season;
+	private Integer season;
 
 	public Integer getId() {
 		return id;
@@ -54,11 +54,11 @@ public class Honour implements Serializable {
 		this.tournament = tournament;
 	}
 
-	public String getSeason() {
+	public Integer getSeason() {
 		return season;
 	}
 
-	public void setSeason(String season) {
+	public void setSeason(Integer season) {
 		this.season = season;
 	}
 	

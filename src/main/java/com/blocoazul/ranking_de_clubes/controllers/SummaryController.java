@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blocoazul.ranking_de_clubes.entities.Country;
 import com.blocoazul.ranking_de_clubes.repositories.CountryRepository;
+import com.blocoazul.ranking_de_clubes.repositories.HonourRepository;
 import com.blocoazul.ranking_de_clubes.services.SummaryService;
 import com.blocoazul.ranking_de_clubes.services.TournamentGroupService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,15 +36,24 @@ public class SummaryController {
 	@Autowired
 	CountryRepository countryRepository;
 	
+	@Autowired
+	HonourRepository honourRepository;
+	
 	@GetMapping("/summary")
 	public ResponseEntity<Map<String, Object>> summary() throws IOException {
 		service.calculate();
 		HashMap<String, Object> map = new HashMap<>();
+		Set<Integer> years = new HashSet<>();
+		
+		years.addAll(honourRepository.getAllYears());
+		map.put("years", years);
 		map.put("lastUpdate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm")));
 		map.put("tournaments", tournamentGroupService.findAll());
 		List<Country> countries = countryRepository.findAll();
 		for (Country country : countries) {
-			country.getRows().addAll(service.findAll(country.getId()));
+			for (Integer year : years) {
+				country.getRows().addAll(service.findAll(country.getId(), year));
+			}
 		}
 		map.put("countries", countries);
 		ResponseEntity<Map<String, Object>> response = ResponseEntity.status(HttpStatus.OK).body(map);
