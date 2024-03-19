@@ -37,6 +37,9 @@ public class Summary implements Serializable {
 	private Integer season;
 	
 	@Transient
+	private Character direction;
+	
+	@Transient
 	private int position;
 	
 	@Transient
@@ -108,6 +111,14 @@ public class Summary implements Serializable {
 
 	public void setSeason(Integer season) {
 		this.season = season;
+	}
+
+	public Character getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Character direction) {
+		this.direction = direction;
 	}
 	
 

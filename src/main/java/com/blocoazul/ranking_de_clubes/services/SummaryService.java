@@ -91,6 +91,14 @@ public class SummaryService {
 			if (flip) {
 				item.setClasse("flip");
 			}
+			List<Summary> lastYearItems = repository.findByTeam_IdAndSeason(item.getTeam().getId(), item.getSeason()-1);
+			if (lastYearItems.isEmpty() || lastYearItems.get(0).getPosition() > item.getPosition()) {
+				item.setDirection('u');
+			} else {
+				if (lastYearItems.get(0).getPosition() < item.getPosition()) {
+					item.setDirection('d');
+				}
+			}
 			lastPoints = item.getPoints();
 		}
 		return result;

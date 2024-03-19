@@ -98,7 +98,8 @@
             <tbody ng-repeat="country in data.countries" ng-if="country.id == selectedCountry">
                 <tr ng-repeat="team in country.rows" ng-if="team.season == selectedYear">
                     <td class="posicao {{team.classe}}">{{team.position}}º</td>
-                    <td class="clube"><img src="img/{{team.team.logo}}" alt="Escudo do Clube">{{team.team.name}}</td>
+                    <td class="clube"><img src="img/{{team.team.logo}}" alt="Escudo do Clube">{{team.team.name}} 
+					<span ng-if="team.direction == 'u'" style="color: green"><b>⬆</b></span><span ng-if="team.direction == 'd'" style="color: red"><b>⬇</b></span></td>
 					<td ng-repeat="num in team.honours track by $index">{{num}}</td>
                     <td>{{team.points}}</td>
                 </tr>

@@ -15,4 +15,6 @@ public interface SummaryRepository extends JpaRepository<Summary, Integer> {
 	
 	List<Summary> findByCountry_IdAndSeason(String countryId, Integer season, Sort sort);
 	
+	List<Summary> findByTeam_IdAndSeason(String teamId, Integer season);
+	
 }
