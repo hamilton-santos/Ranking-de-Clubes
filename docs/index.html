@@ -97,9 +97,12 @@
             </thead>
             <tbody>
                 <tr ng-repeat="row in data.rows" ng-if="row.season == selectedYear && row.countryId == selectedCountry">
-                    <td class="position {{row.classe}}">{{row.position}}º</td>
+                    <td class="position {{row.classe}}">{{row.place}}º</td>
                     <td class="team"><img src="img/{{row.team.logo}}" alt="Escudo do Clube">{{row.team.name}} 
-					<span ng-if="row.direction == 'u'" style="color: green"><b>⬆</b></span><span ng-if="row.direction == 'd'" style="color: red"><b>⬇</b></span></td>
+					<span ng-if="row.direction == 'u'" style="color: green"><b>⬆</b></span>
+					<span ng-if="row.direction == 'd'" style="color: red"><b>⬇</b></span>
+					<span ng-if="row.direction == 'c'" style="color: yellow; font-size: small"><b>⚠️</b></span>
+					</td>
 					<td ng-repeat="num in row.titles track by $index">{{num}}</td>
                     <td>{{row.points}}</td>
                 </tr>

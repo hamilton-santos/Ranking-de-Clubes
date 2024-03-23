@@ -31,7 +31,7 @@ public class SummaryService {
 
 	@Autowired
 	TeamService teamService;
-	
+
 	public List<Summary> findAll() {
 		return repository.findAll();
 	}
@@ -59,7 +59,7 @@ public class SummaryService {
 		}
 	}
 
-	public Summary generateSummary(Team team, Integer year, Country country) {
+	private Summary generateSummary(Team team, Integer year, Country country) {
 		int[] summaryTitles = new int[4];
 		Arrays.fill(summaryTitles, 0);
 		int points = 0;
@@ -82,18 +82,30 @@ public class SummaryService {
 		}
 		return null;
 	}
-
-	public void organizeSummaries(List<Summary> summaries) {
+	
+	private void organizeSummaries(List<Summary> summaries) {
+		Set<Summary> tied = new HashSet<>();		
+		setPositions(summaries, tied);
+		markTied(tied);
+		setDirections(summaries);
+	}
+	
+	private void setPositions(List<Summary> summaries, Set<Summary> tied) {
 		Collections.sort(summaries);
 		int position = 1;
-		int lastPoints = -1;
 		int increment = 0;
 		boolean altColor = false;
+		Summary lastItem = null;
+
 
 		for (Summary item : summaries) {
-			if (lastPoints == -1 || item.getPoints() == lastPoints) {
+			if (lastItem == null || item.getPoints().equals(lastItem.getPoints())) {
 				item.setPosition(position);
 				increment++;
+				if (lastItem != null) {
+					tied.add(lastItem);
+					tied.add(item);
+				}
 			} else {
 				altColor = !altColor;
 				position = position + increment;
@@ -103,17 +115,36 @@ public class SummaryService {
 			if (altColor) {
 				item.setClasse("altColor");
 			}
+			lastItem = item;
+		}
+	}
+	
+	private void markTied(Set<Summary> tied) {
+		for (Summary item : tied) {
+			item.setPosition(Float.sum(item.getPosition(), 0.5f));
+		}
+	}
+	
+	private void setDirections(List<Summary> summaries) {
+		
+		for (Summary item : summaries) {
 			List<Summary> lastYearItems = repository.findByTeam_IdAndSeason(item.getTeam().getId(),
 					item.getSeason() - 1);
-			if (lastYearItems.isEmpty() || lastYearItems.get(0).getPosition() > item.getPosition()) {
+			Summary lastYearItem = lastYearItems.isEmpty() ? null : lastYearItems.get(0);
+			if (lastYearItem == null || lastYearItem.getPosition() > item.getPosition()) {
 				item.setDirection('u');
 			} else {
 				if (lastYearItems.get(0).getPosition() < item.getPosition()) {
-					item.setDirection('d');
+					if (item.getPosition() - lastYearItem.getPosition() == 0.5f
+							&& item.getPosition().intValue() == lastYearItem.getPosition().intValue()) {
+						item.setDirection('c');
+					} else {
+						item.setDirection('d');
+					}
 				}
 			}
-			lastPoints = item.getPoints();
 		}
 	}
+
 
 }

@@ -1,6 +1,7 @@
 package com.blocoazul.ranking_de_clubes.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,7 +37,8 @@ public class Summary implements Serializable, Comparable<Summary> {
 	
 	private Character direction;
 	
-	private Integer position;
+	@JsonIgnore
+	private Float position;
 	
 	private String classe;
 	
@@ -76,12 +78,20 @@ public class Summary implements Serializable, Comparable<Summary> {
 		this.points = points;
 	}
 	
-	public Integer getPosition() {
+	public Float getPosition() {
 		return position;
 	}
 	
-	public void setPosition(int position) {
+	public void setPosition(Float position) {
 		this.position = position;
+	}
+	
+	public void setPosition(Integer position) {
+		this.position = (float) position;
+	}
+	
+	public Integer getPlace() {
+		return (int) position.floatValue();
 	}
 
 	public String getClasse() {
@@ -145,7 +155,7 @@ public class Summary implements Serializable, Comparable<Summary> {
 
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
+		return Objects.hash(team.getId(), season);
 	}
 	
 	
