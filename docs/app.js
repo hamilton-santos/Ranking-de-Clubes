@@ -7,6 +7,6 @@ angular.module('app', [])
 	}).then(function(response) {
 		$scope.data = response.data;
 		$scope.selectedCountry = response.data.countries[0].id;
-		$scope.selectedYear = String(response.data.years[response.data.years.length - 1]);
+		$scope.selectedYear = String(response.data.years[0]);
 	});
 }]);

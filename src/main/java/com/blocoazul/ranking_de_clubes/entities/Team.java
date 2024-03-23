@@ -26,7 +26,7 @@ public class Team implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="team")
-	private List<Honour> honours;
+	private List<Title> titles;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -49,12 +49,12 @@ public class Team implements Serializable {
 		this.name = name;
 	}
 
-	public List<Honour> getHonours() {
-		return honours;
+	public List<Title> getTitles() {
+		return titles;
 	}
 
-	public void setHonours(List<Honour> honours) {
-		this.honours = honours;
+	public void setTitles(List<Title> titles) {
+		this.titles = titles;
 	}
 	
 	public String getLogo() {

@@ -10,13 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "summary")
-public class Summary implements Serializable {
+public class Summary implements Serializable, Comparable<Summary> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -36,16 +34,13 @@ public class Summary implements Serializable {
 	
 	private Integer season;
 	
-	@Transient
 	private Character direction;
 	
-	@Transient
-	private int position;
+	private Integer position;
 	
-	@Transient
 	private String classe;
 	
-	private int[] honours;
+	private int[] titles;
 	
 	private Integer points;
 
@@ -65,12 +60,12 @@ public class Summary implements Serializable {
 		this.team = team;
 	}
 
-	public int[] getHonours() {
-		return honours;
+	public int[] getTitles() {
+		return titles;
 	}
 
-	public void setHonours(int[] honours) {
-		this.honours = honours;
+	public void setTitles(int[] titles) {
+		this.titles = titles;
 	}
 
 	public Integer getPoints() {
@@ -81,7 +76,7 @@ public class Summary implements Serializable {
 		this.points = points;
 	}
 	
-	public int getPosition() {
+	public Integer getPosition() {
 		return position;
 	}
 	
@@ -120,6 +115,39 @@ public class Summary implements Serializable {
 	public void setDirection(Character direction) {
 		this.direction = direction;
 	}
+	
+	public String getCountryId() {
+		return getCountry() != null ? getCountry().getId() : null;
+	}
+
+	@Override
+	public int compareTo(Summary other) {
+		
+		int diff = 0;
+		
+		if (getPoints() != null && other.getPoints() != null) {
+			diff = other.getPoints() - getPoints();
+		}
+		
+		if (diff == 0) {
+			return getTeam().getName().compareTo(other.getTeam().getName());
+		}
+		
+		return diff;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		return object != null &&
+				object.getClass() == Summary.class &&
+				((Summary) object).hashCode() == hashCode();
+		}
+
+	@Override
+	public int hashCode() {
+		return getId().hashCode();
+	}
+	
 	
 
 }

@@ -1,7 +1,6 @@
 package com.blocoazul.ranking_de_clubes.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -9,12 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "countries")
@@ -27,19 +25,18 @@ public class Country implements Serializable {
 		
 	private String name;
 	
+	private Integer worldCups;
+	
 	@ManyToMany
 	@JoinTable(name = "tournaments_countries",
 	joinColumns = @JoinColumn(name = "country_id"),
 	inverseJoinColumns = @JoinColumn(name = "tournament_id"))
 	@JsonIgnore
-	Set<Tournament> tournaments;
+	private Set<Tournament> tournaments;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="country")
 	private List<Team> teams;
-	
-	@Transient
-	private List<Summary> rows = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -57,6 +54,14 @@ public class Country implements Serializable {
 		this.name = name;
 	}
 
+	public Integer getWorldCups() {
+		return worldCups;
+	}
+
+	public void setWorldCups(Integer worldCups) {
+		this.worldCups = worldCups;
+	}
+
 	public Set<Tournament> getTournaments() {
 		return tournaments;
 	}
@@ -71,14 +76,6 @@ public class Country implements Serializable {
 
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
-	}
-
-	public List<Summary> getRows() {
-		return rows;
-	}
-
-	public void setRows(List<Summary> rows) {
-		this.rows = rows;
 	}
 
 }

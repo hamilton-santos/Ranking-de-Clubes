@@ -24,7 +24,7 @@ public class Tournament implements Serializable {
 	private TournamentGroup group;
 	
 	@ManyToMany(mappedBy = "tournaments")
-	Set<Country> countries;
+	private Set<Country> countries;
 
 	public String getId() {
 		return id;

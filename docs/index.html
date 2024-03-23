@@ -52,22 +52,22 @@
             vertical-align: middle;
             margin-right: 10px;
         }
-        .posicao {
+        .position {
             background-color: #333;
             color: #fff;
             font-weight: bold;
         }
-        .clube {
+        .team {
             text-align: left;
         }
         .total {
             background-color: #f9f9f9;
             color: #333;
         }
-		.flip {
+		.altColor {
 			background-color: gray;
 		}
-		.torneio {
+		.tournament {
 			cursor: help;
 		}
     </style>
@@ -87,21 +87,21 @@
             <thead>
 				<tr>{{explain}}</tr>
                 <tr>
-                    <th class="posicao">Posição</th>
+                    <th class="position">Posição</th>
                     <th>Clube</th>
-					<th class="torneio" ng-repeat="tournament in data.tournaments"
+					<th class="tournament" ng-repeat="tournament in data.tournaments"
 						ng-click="$parent.explain == tournament.notes ? $parent.explain = undefined : $parent.explain = tournament.notes">
 						{{tournament.name}}<br>({{tournament.points}} {{tournament.points > 1 ? 'pts' : 'pt'}})</th>
                     <th>Pontuação</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="country in data.countries" ng-if="country.id == selectedCountry">
-                <tr ng-repeat="team in country.rows" ng-if="team.season == selectedYear">
-                    <td class="posicao {{team.classe}}">{{team.position}}º</td>
-                    <td class="clube"><img src="img/{{team.team.logo}}" alt="Escudo do Clube">{{team.team.name}} 
-					<span ng-if="team.direction == 'u'" style="color: green"><b>⬆</b></span><span ng-if="team.direction == 'd'" style="color: red"><b>⬇</b></span></td>
-					<td ng-repeat="num in team.honours track by $index">{{num}}</td>
-                    <td>{{team.points}}</td>
+            <tbody>
+                <tr ng-repeat="row in data.rows" ng-if="row.season == selectedYear && row.countryId == selectedCountry">
+                    <td class="position {{row.classe}}">{{row.position}}º</td>
+                    <td class="team"><img src="img/{{row.team.logo}}" alt="Escudo do Clube">{{row.team.name}} 
+					<span ng-if="row.direction == 'u'" style="color: green"><b>⬆</b></span><span ng-if="row.direction == 'd'" style="color: red"><b>⬇</b></span></td>
+					<td ng-repeat="num in row.titles track by $index">{{num}}</td>
+                    <td>{{row.points}}</td>
                 </tr>
             </tbody>
         </table>
