@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.blocoazul.ranking_de_clubes.enums.Direction;
+import com.blocoazul.ranking_de_clubes.enums.RankType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -49,6 +51,10 @@ public class Summary implements Serializable, Comparable<Summary> {
 	private int[] titles;
 	
 	private Integer points;
+	
+    @Enumerated(EnumType.STRING)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+	private RankType rankType;
 
 	public Integer getId() {
 		return id;
@@ -132,6 +138,14 @@ public class Summary implements Serializable, Comparable<Summary> {
 	
 	public String getCountryId() {
 		return getCountry() != null ? getCountry().getId() : null;
+	}
+
+	public RankType getRankType() {
+		return rankType;
+	}
+
+	public void setRankType(RankType rankType) {
+		this.rankType = rankType;
 	}
 
 	@Override

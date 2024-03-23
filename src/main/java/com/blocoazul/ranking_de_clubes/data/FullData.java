@@ -5,14 +5,24 @@ import java.util.List;
 import com.blocoazul.ranking_de_clubes.entities.Country;
 import com.blocoazul.ranking_de_clubes.entities.Summary;
 import com.blocoazul.ranking_de_clubes.entities.TournamentGroup;
+import com.blocoazul.ranking_de_clubes.enums.RankType;
 
 public class FullData {
 
+	private RankType[] rankTypes;
 	private List<Country> countries;
-	private List<Integer> years;
+	private List<SeasonData> seasons;
 	private List<TournamentGroup> tournaments;
 	private List<Summary> rows;
 	private String lastUpdate;
+
+	public RankType[] getRankTypes() {
+		return rankTypes;
+	}
+
+	public void setRankTypes(RankType[] rankTypes) {
+		this.rankTypes = rankTypes;
+	}
 
 	public List<Country> getCountries() {
 		return countries;
@@ -22,12 +32,12 @@ public class FullData {
 		this.countries = countries;
 	}
 
-	public List<Integer> getYears() {
-		return years;
+	public List<SeasonData> getSeasons() {
+		return seasons;
 	}
 
-	public void setYears(List<Integer> years) {
-		this.years = years;
+	public void setSeasons(List<SeasonData> seasons) {
+		this.seasons = seasons;
 	}
 
 	public List<TournamentGroup> getTournaments() {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blocoazul.ranking_de_clubes.data.FullData;
+import com.blocoazul.ranking_de_clubes.enums.RankType;
 
 @Service
 public class FullDataService {
@@ -18,6 +19,9 @@ public class FullDataService {
 	TitleService titleService;
 	
 	@Autowired
+	SeasonDataService seasonDataService;
+	
+	@Autowired
 	TournamentGroupService tournamentGroupService;
 	
 	@Autowired
@@ -25,8 +29,9 @@ public class FullDataService {
 	
 	public FullData getFullData() {
 		FullData data = new FullData();
+		data.setRankTypes(RankType.values());
 		data.setCountries(countryService.findAll());
-		data.setYears(titleService.getAllYearsDesc());		
+		data.setSeasons(seasonDataService.convertYearsToSeasonData(titleService.getAllYearsDesc()));		
 		data.setTournaments(tournamentGroupService.findAll());
 		data.setRows(summaryService.findAll());		
 		data.setLastUpdate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
