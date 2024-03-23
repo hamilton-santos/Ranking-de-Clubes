@@ -3,9 +3,12 @@ package com.blocoazul.ranking_de_clubes.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.blocoazul.ranking_de_clubes.enums.Direction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,12 +38,13 @@ public class Summary implements Serializable, Comparable<Summary> {
 	
 	private Integer season;
 	
-	private Character direction;
+    @Enumerated(EnumType.STRING)
+	private Direction direction;
 	
 	@JsonIgnore
 	private Float position;
 	
-	private String classe;
+	private String css;
 	
 	private int[] titles;
 	
@@ -94,12 +98,12 @@ public class Summary implements Serializable, Comparable<Summary> {
 		return (int) position.floatValue();
 	}
 
-	public String getClasse() {
-		return classe;
+	public String getCss() {
+		return css;
 	}
 
-	public void setClasse(String classe) {
-		this.classe = classe;
+	public void setCss(String css) {
+		this.css = css;
 	}
 
 	public Country getCountry() {
@@ -118,11 +122,11 @@ public class Summary implements Serializable, Comparable<Summary> {
 		this.season = season;
 	}
 
-	public Character getDirection() {
+	public Direction getDirection() {
 		return direction;
 	}
 
-	public void setDirection(Character direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 	

@@ -15,6 +15,7 @@ import com.blocoazul.ranking_de_clubes.entities.Country;
 import com.blocoazul.ranking_de_clubes.entities.Summary;
 import com.blocoazul.ranking_de_clubes.entities.Team;
 import com.blocoazul.ranking_de_clubes.entities.Title;
+import com.blocoazul.ranking_de_clubes.enums.Direction;
 import com.blocoazul.ranking_de_clubes.repositories.SummaryRepository;
 
 @Service
@@ -113,7 +114,7 @@ public class SummaryService {
 				increment = 1;
 			}
 			if (altColor) {
-				item.setClasse("altColor");
+				item.setCss("altColor");
 			}
 			lastItem = item;
 		}
@@ -132,14 +133,14 @@ public class SummaryService {
 					item.getSeason() - 1);
 			Summary lastYearItem = lastYearItems.isEmpty() ? null : lastYearItems.get(0);
 			if (lastYearItem == null || lastYearItem.getPosition() > item.getPosition()) {
-				item.setDirection('u');
+				item.setDirection(Direction.UP);
 			} else {
 				if (lastYearItems.get(0).getPosition() < item.getPosition()) {
 					if (item.getPosition() - lastYearItem.getPosition() == 0.5f
 							&& item.getPosition().intValue() == lastYearItem.getPosition().intValue()) {
-						item.setDirection('c');
+						item.setDirection(Direction.CAUTION);
 					} else {
-						item.setDirection('d');
+						item.setDirection(Direction.DOWN);
 					}
 				}
 			}
