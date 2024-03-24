@@ -131,8 +131,20 @@ public class SummaryService {
 
 	private void markTied(Set<Summary> tied) {
 		for (Summary item : tied) {
-			item.setPosition(Float.sum(item.getPosition(), 0.5f));
+			item.setPosition(Float.sum(item.getPosition(), searchElementsTied(item, tied) * 0.01f));
 		}
+	}
+	
+	private int searchElementsTied(Summary item, Set<Summary> tied) {
+		int result = 0;
+		for (Summary obj : tied) {
+			if (item.getCountry().getId().equals(obj.getCountry().getId())
+					&& item.getSeason().equals(obj.getSeason())
+					&& item.getPoints().equals(obj.getPoints())) {
+				result++;
+			}
+		}
+		return result;
 	}
 
 	private void setDirections(List<Summary> summaries) {
@@ -145,7 +157,7 @@ public class SummaryService {
 				item.setDirection(Direction.UP);
 			} else {
 				if (lastYearItems.get(0).getPosition() < item.getPosition()) {
-					if (item.getPosition() - lastYearItem.getPosition() == 0.5f
+					if (item.getPosition() - lastYearItem.getPosition() < 1
 							&& item.getPosition().intValue() == lastYearItem.getPosition().intValue()) {
 						item.setDirection(Direction.CAUTION);
 					} else {
