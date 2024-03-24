@@ -1,8 +1,9 @@
 package com.blocoazul.ranking_de_clubes.data;
 
-import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.blocoazul.ranking_de_clubes.controllers.Constants;
+import com.blocoazul.ranking_de_clubes.enums.RankType;
 
 public class SeasonData {
 	
@@ -15,22 +16,14 @@ public class SeasonData {
 	public String getYear() {
 		return year;
 	}
-
-	public String getDynamicLabel() {
-		return (getYearInt() - Constants.DYNAMIC_YEARS_PERIOD) + " - " + getYearStr();
-	}
 	
-	public String getLabel() {
-		 return	getYearStr();
+	public Map<String, String> getLabels() {
+		HashMap<String, String> labels = new HashMap<>();		
+		for (RankType rankType : RankType.values()) {
+			labels.put(rankType.name(),
+					rankType.getPeriod() == null ?
+							getYear() :  (Integer.parseInt(getYear()) - rankType.getPeriod() + 1) + " - " + getYear());
+		}
+		return labels;
 	}
-	
-	private Integer getYearInt() {
-		return Integer.parseInt(getYear());
-	}
-	
-	private String getYearStr() {
-		return LocalDate.now().getYear() <= getYearInt() ?
-				getYear() + " (Parcial)" : getYear();
-	}
-
 }

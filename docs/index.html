@@ -46,7 +46,7 @@
             background-color: #333;
             color: #fff;
         }
-        img {
+        .escudo {
             max-width: 40px;
             max-height: 40px;
             vertical-align: middle;
@@ -70,9 +70,16 @@
 		.tournament {
 			cursor: help;
 		}
+		.loading {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
     </style>
 </head>
 <body ng-controller="Controller">
+	<div ng-if="ready">
     <header>
         <h1>Ranking de Clubes</h1>
 		<select name="countries" id="countries" ng-model="selectedRankType">
@@ -81,8 +88,8 @@
 		<select name="countries" id="countries" ng-model="selectedCountry">
 			<option ng-repeat="country in data.countries" value="{{country.id}}">{{country.name}}</option>
 		</select>
-		<select name="years" id="years" ng-model="selectedYear">
-			<option ng-repeat="season in data.seasons track by season.year" value="{{season.year}}">{{selectedRankType == 'DYNAMIC' ? season.dynamicLabel : season.label}}</option>
+		<select name="seasons" id="seasons" ng-model="selectedYear">
+			<option ng-repeat="season in data.seasons track by season.year" value="{{season.year}}">{{season.labels[selectedRankType]}}</option>
 		</select>
     </header>
     <div class="container">
@@ -101,7 +108,7 @@
             <tbody>
                 <tr ng-repeat="row in data.rows" ng-if="row.season == selectedYear && row.countryId == selectedCountry && row.rankType == selectedRankType">
                     <td class="position {{row.css}}">{{row.place}}º</td>
-                    <td class="team"><img src="img/{{row.team.logo}}" alt="Escudo do Clube">{{row.team.name}} 
+                    <td class="team"><img src="img/{{row.team.logo}}" class="escudo" alt="Escudo do Clube">{{row.team.name}} 
 					<span ng-if="row.direction == 'UP'" style="color: green"><b>⬆</b></span>
 					<span ng-if="row.direction == 'DOWN'" style="color: red"><b>⬇</b></span>
 					<span ng-if="row.direction == 'CAUTION'" style="color: yellow; font-size: small"><b>⚠️</b></span>
@@ -115,6 +122,10 @@
 	<footer>
 		<p>Atualizado em {{data.lastUpdate}} (horário de Brasília)</p>
 	</footer>
+	</div>
+	<div ng-if="!ready">
+		<img class="loading" src="loading.gif">
+	</div>
 </body>
 
 </html>

@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.blocoazul.ranking_de_clubes.controllers.Constants;
 import com.blocoazul.ranking_de_clubes.entities.Country;
 import com.blocoazul.ranking_de_clubes.entities.Summary;
 import com.blocoazul.ranking_de_clubes.entities.Team;
@@ -36,7 +36,11 @@ public class SummaryService {
 	TeamService teamService;
 
 	public List<Summary> findAll() {
-		return repository.findAll();
+		return repository.findAll(Sort.by("rankType")
+				.and(Sort.by("country"))
+				.and(Sort.by("position"))
+				.and(Sort.by("team"))
+				);
 	}
 
 	public void calculate() {
@@ -71,7 +75,7 @@ public class SummaryService {
 
 		for (Title title : team.getTitles()) {
 			if (title.getSeason() <= year
-					&& (rankType == RankType.ETERNAL || title.getSeason() > year - Constants.DYNAMIC_YEARS_PERIOD)) {
+					&& (rankType.getPeriod() == null || title.getSeason() > (year - rankType.getPeriod()))) {
 				summaryTitles[title.getTournament().getGroup().getPoints() - 1]++;
 				points += title.getTournament().getGroup().getPoints();
 			}
