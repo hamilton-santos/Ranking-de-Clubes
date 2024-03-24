@@ -3,6 +3,7 @@ package com.blocoazul.ranking_de_clubes.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.blocoazul.ranking_de_clubes.entities.ids.SummaryId;
 import com.blocoazul.ranking_de_clubes.enums.Direction;
 import com.blocoazul.ranking_de_clubes.enums.RankType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -11,34 +12,37 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
+@IdClass(SummaryId.class)
 @Table(name = "summary")
 public class Summary implements Serializable, Comparable<Summary> {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
-	private Integer id;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
 	
+	@Id
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="country_id")
 	private Country country;
 	
+	@Id
 	private Integer season;
+	
+	@Id
+    @Enumerated(EnumType.STRING)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+	private RankType rankType;
 	
     @Enumerated(EnumType.STRING)
 	private Direction direction;
@@ -51,18 +55,6 @@ public class Summary implements Serializable, Comparable<Summary> {
 	private int[] titles;
 	
 	private Integer points;
-	
-    @Enumerated(EnumType.STRING)
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-	private RankType rankType;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Team getTeam() {
 		return team;

@@ -1,12 +1,10 @@
 package com.blocoazul.ranking_de_clubes.entities;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -22,9 +20,6 @@ public class Tournament implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="group_id")
 	private TournamentGroup group;
-	
-	@ManyToMany(mappedBy = "tournaments")
-	private Set<Country> countries;
 
 	public String getId() {
 		return id;
@@ -40,14 +35,6 @@ public class Tournament implements Serializable {
 
 	public void setGroup(TournamentGroup group) {
 		this.group = group;
-	}
-
-	public Set<Country> getCountries() {
-		return countries;
-	}
-
-	public void setCountries(Set<Country> countries) {
-		this.countries = countries;
 	}
 
 }
