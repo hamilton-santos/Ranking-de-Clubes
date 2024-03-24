@@ -57,6 +57,9 @@
             color: #fff;
             font-weight: bold;
         }
+        .teamHeader {
+        	width: 30%
+        }
         .team {
             text-align: left;
         }
@@ -98,7 +101,7 @@
 				<tr>{{explain}}</tr>
                 <tr>
                     <th class="position">Posição</th>
-                    <th>Clube</th>
+                    <th class="teamHeader">Clube</th>
 					<th class="tournament" ng-repeat="tournament in data.tournaments"
 						ng-click="$parent.explain == tournament.notes ? $parent.explain = undefined : $parent.explain = tournament.notes">
 						{{tournament.name}}<br>({{tournament.points}} {{tournament.points > 1 ? 'pts' : 'pt'}})</th>
