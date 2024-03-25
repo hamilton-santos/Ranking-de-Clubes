@@ -47,12 +47,8 @@ public class SummaryService {
 
 		repository.deleteAll();
 
-		Set<Integer> years = new HashSet<>();
-
-		years.addAll(titleService.getAllYears());
-
 		for (RankType rankType : RankType.values()) {
-			for (Integer year : years) {
+			for (Integer year : titleService.getAllYears()) {
 				for (Country country : countryService.findAll()) {
 					List<Summary> summaries = new ArrayList<>();
 					for (Team team : teamService.getAllTeamsFrom(country.getId())) {

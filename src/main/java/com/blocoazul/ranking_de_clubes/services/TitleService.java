@@ -1,5 +1,6 @@
 package com.blocoazul.ranking_de_clubes.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +26,7 @@ public class TitleService {
 	public Set<Integer> getAllYears() {
 		HashSet<Integer> years = new HashSet<>();
 		years.addAll(repository.getAllYearsAsc());
+		years.add(LocalDateTime.now().getYear());
 		return years;
 	}
 	
