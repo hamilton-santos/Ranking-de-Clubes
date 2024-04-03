@@ -111,7 +111,7 @@
             <tbody>
                 <tr ng-repeat="row in data.rows" ng-if="row.season == selectedYear && row.countryId == selectedCountry && row.rankType == selectedRankType">
                     <td class="position {{row.css}}">{{row.place}}º</td>
-                    <td class="team"><img src="img/{{row.team.logo}}" class="escudo" alt="Escudo do Clube">{{row.team.name}} 
+                    <td class="team"><img src="img/{{row.team.logo}}" class="escudo">{{row.team.name}} 
 					<span ng-if="row.direction == 'UP'" style="color: green"><b>⬆</b></span>
 					<span ng-if="row.direction == 'DOWN'" style="color: red"><b>⬇</b></span>
 					<span ng-if="row.direction == 'CAUTION'" style="color: yellow; font-size: small"><b>⚠️</b></span>
