@@ -1,153 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-br" ng-app="app">
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-	<script src="app.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking de Clubes</title>
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <style>
-		 header {
-		     background-color: #333;
-		     color: #fff;
-		     text-align: center;
-		     padding: 10px 0;
-		}
-		 body {
-		     font-family: Arial, sans-serif;
-		     margin: 0;
-		     padding: 0;
-		     background-color: #f4f4f4;
-		}
-		 footer {
-		     text-align: center;
-		}
-		 table {
-		     width: 100%;
-		     border-collapse: collapse;
-		     margin-top: 20px;
-		     border-radius: 10px;
-		     overflow: hidden;
-		     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		}
-		 th, td {
-		     padding: 10px;
-		     text-align: center;
-		     border-bottom: 1px solid #ddd;
-		}
-		 th {
-		     background-color: #333;
-		     color: #fff;
-		}
-		 .container {
-		     max-width: 1200px;
-		     margin: 20px auto;
-		     padding: 0 20px;
-		     overflow-x: auto;
-		}
-		 .escudo {
-		     max-width: 40px;
-		     max-height: 40px;
-		     vertical-align: middle;
-		     margin-right: 10px;
-		}
-		 .position {
-		     background-color: #333;
-		     color: #fff;
-		     font-weight: bold;
-		}
-		 .teamHeader {
-		     width: 30% 
-		}
-		 .team {
-		     text-align: left;
-		}
-		 .total {
-		     background-color: #f9f9f9;
-		     color: #333;
-		}
-		 .altColor {
-		     background-color: gray;
-		}
-		 .tournament {
-		     cursor: help;
-		}
-		 .loading {
-		     position: fixed;
-		     top: 50%;
-		     left: 50%;
-		     transform: translate(-50%, -50%);
-		}
-		 @media screen and (max-width: 767px) {
-		     .container {
-		         padding: 0 10px;
-		         overflow-x: auto;
-		    }
-		     table {
-		         min-width: 100%;
-		    }
-		     th, td {
-		         font-size: 12px;
-		    }
-		     .position {
-		         font-size: 14px;
-		    }
-		     .teamHeader {
-		         width: 60%;
-		    }
-		}
-    </style>
-</head>
-<body ng-controller="Controller">
-	<div ng-if="ready">
-    <header>
-        <h1>Ranking de Clubes</h1>
-		<select name="countries" id="countries" ng-model="selectedRankType">
-			<option ng-repeat="rankType in data.rankTypes" value="{{rankType.name}}">{{rankType.label}}</option>
-		</select>
-		<select name="countries" id="countries" ng-model="selectedCountry">
-			<option ng-repeat="country in data.countries" value="{{country.id}}">{{country.name}}</option>
-		</select>
-		<select name="seasons" id="seasons" ng-model="selectedYear">
-			<option ng-repeat="season in data.seasons track by season.year" value="{{season.year}}">{{season.labels[selectedRankType]}}</option>
-		</select>
-    </header>
-    <div class="container">
-        <table>
-            <thead>
-				<tr>{{explain}}</tr>
-                <tr>
-                    <th class="position">Posição</th>
-                    <th class="teamHeader">Clube</th>
-                    <th>Pontuação</th>
-					<th class="tournament" ng-repeat="tournament in data.tournaments"
-						ng-click="$parent.explain == tournament.notes ? $parent.explain = undefined : $parent.explain = tournament.notes">
-						{{tournament.name}}<br>({{tournament.points}} {{tournament.points > 1 ? 'pts' : 'pt'}})</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in data.rows" ng-if="row.season == selectedYear && row.countryId == selectedCountry && row.rankType == selectedRankType">
-                    <td class="position {{row.css}}">{{row.place}}º</td>
-                    <td class="team"><img ng-src="img/{{row.team.logo}}" onerror="this.src='img/no_badge.png'" class="escudo" alt="">{{row.team.name}} 
-					<span ng-if="row.direction == 'UP'" style="color: green"><b>⬆</b></span>
-					<span ng-if="row.direction == 'DOWN'" style="color: red"><b>⬇</b></span>
-					<span ng-if="row.direction == 'CAUTION'" style="color: yellow; font-size: small"><b>⚠️</b></span>
-					</td>
-                    <td><strong>{{row.points}}</strong></td>
-					<td ng-repeat="num in row.titles track by $index">{{num}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-	<footer>
-		<p>Atualizado em {{data.lastUpdate}} (horário de Brasília)</p>
-	</footer>
-	</div>
-	<div ng-if="!ready">
-		<img class="loading" src="loading.gif" alt="Carregando...">
-	</div>
-</body>
-
+	<head>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+		<script src="app.js"></script>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Ranking de Clubes</title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	    <style>
+			 header {
+			     background-color: #333;
+			     color: #fff;
+			     text-align: center;
+			     padding: 10px 0;
+			}
+			 body {
+			     font-family: Arial, sans-serif;
+			     margin: 0;
+			     padding: 0;
+			     background-color: #f4f4f4;
+			}
+			 footer {
+			     text-align: center;
+			}
+			 table {
+			     width: 100%;
+			     border-collapse: collapse;
+			     margin-top: 20px;
+			     border-radius: 10px;
+			     overflow: hidden;
+			     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			}
+			 th, td {
+			     padding: 10px;
+			     text-align: center;
+			     border-bottom: 1px solid #ddd;
+			}
+			 th {
+			     background-color: #333;
+			     color: #fff;
+			}
+			 .container {
+			     max-width: 1200px;
+			     margin: 20px auto;
+			     padding: 0 20px;
+			     overflow-x: auto;
+			}
+			 .escudo {
+			     max-width: 40px;
+			     max-height: 40px;
+			     vertical-align: middle;
+			     margin-right: 10px;
+			}
+			 .position {
+			     background-color: #333;
+			     color: #fff;
+			     font-weight: bold;
+			}
+			 .teamHeader {
+			     width: 30% 
+			}
+			 .team {
+			     text-align: left;
+			}
+			 .total {
+			     background-color: #f9f9f9;
+			     color: #333;
+			}
+			 .altColor {
+			     background-color: gray;
+			}
+			 .tournament {
+			     cursor: help;
+			}
+			 .loading {
+			     position: fixed;
+			     top: 50%;
+			     left: 50%;
+			     transform: translate(-50%, -50%);
+			}
+			 @media screen and (max-width: 767px) {
+			     .container {
+			         padding: 0 10px;
+			         overflow-x: auto;
+			    }
+			     table {
+			         min-width: 100%;
+			    }
+			     th, td {
+			         font-size: 12px;
+			    }
+			     .position {
+			         font-size: 14px;
+			    }
+			     .teamHeader {
+			         width: 60%;
+			    }
+			}
+	    </style>
+	</head>
+	<body ng-controller="Controller">
+		<div ng-if="ready">
+	    <header>
+	        <h1 id="titulo">Ranking de Clubes</h1>
+			<select id="rankType" ng-model="selectedRankType">
+				<option ng-repeat="rankType in data.rankTypes" value="{{rankType.name}}">{{rankType.label}}</option>
+			</select>
+			<select id="countries" ng-model="selectedCountry">
+				<option ng-repeat="country in data.countries" value="{{country.id}}">{{country.name}}</option>
+			</select>
+			<select id="seasons" ng-model="selectedYear">
+				<option ng-repeat="season in data.seasons track by season.year" value="{{season.year}}">{{season.labels[selectedRankType]}}</option>
+			</select>
+	    </header>
+	    <div class="container">
+	        <table aria-labelledby="titulo">
+	            <thead>
+					<tr>{{explain}}</tr>
+	                <tr>
+	                    <th class="position">Posição</th>
+	                    <th class="teamHeader">Clube</th>
+	                    <th>Pontuação</th>
+						<th class="tournament" ng-repeat="tournament in data.tournaments"
+							ng-click="$parent.explain == tournament.notes ? $parent.explain = undefined : $parent.explain = tournament.notes">
+							{{tournament.name}}<br>({{tournament.points}} {{tournament.points > 1 ? 'pts' : 'pt'}})</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr ng-repeat="row in data.rows" ng-if="row.season == selectedYear && row.countryId == selectedCountry && row.rankType == selectedRankType">
+	                    <td class="position {{row.css}}">{{row.place}}º</td>
+	                    <td class="team"><img ng-src="img/{{row.team.logo}}" onerror="this.src='img/no_badge.png'" class="escudo" alt="" role="presentation">{{row.team.name}} 
+						<span ng-if="row.direction == 'UP'" style="color: green"><b>⬆</b></span>
+						<span ng-if="row.direction == 'DOWN'" style="color: red"><b>⬇</b></span>
+						<span ng-if="row.direction == 'CAUTION'" style="color: yellow; font-size: small"><b>⚠️</b></span>
+						</td>
+	                    <td><strong>{{row.points}}</strong></td>
+						<td ng-repeat="num in row.titles track by $index">{{num}}</td>
+	                </tr>
+	            </tbody>
+	        </table>
+	    </div>
+		<footer>
+			<p>Atualizado em {{data.lastUpdate}} (horário de Brasília)</p>
+		</footer>
+		</div>
+		<div ng-if="!ready">
+			<img class="loading" src="loading.gif" alt="Carregando...">
+		</div>
+	</body>
 </html>
