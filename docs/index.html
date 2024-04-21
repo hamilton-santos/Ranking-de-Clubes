@@ -59,7 +59,8 @@
 			     font-weight: bold;
 			}
 			 .teamHeader {
-			     width: 30% 
+			     width: 30%;
+				 text-align: left;
 			}
 			 .team {
 			     text-align: left;
@@ -79,6 +80,10 @@
 			     top: 50%;
 			     left: 50%;
 			     transform: translate(-50%, -50%);
+			}
+			.fixed-width-columns th:nth-child(n+3),
+			.fixed-width-columns td:nth-child(n+3) {
+				width: 150px;
 			}
 			 @media screen and (max-width: 767px) {
 			     .container {
@@ -115,7 +120,7 @@
 			</select>
 	    </header>
 	    <div class="container">
-	        <table aria-labelledby="titulo">
+	        <table aria-labelledby="titulo" class="fixed-width-columns">
 	            <thead>
 					<tr>{{explain}}</tr>
 	                <tr>
