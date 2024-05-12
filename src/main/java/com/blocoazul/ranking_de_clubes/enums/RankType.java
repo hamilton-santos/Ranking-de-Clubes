@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RankType {
 	
-	DYNAMIC("Dinâmico", 5),
+	MOMENTUM("Momentum", 5),
+	DYNAMIC("Dinâmico", 10),
 	ETERNAL("Eterno", null);
 	
 	private String label;
