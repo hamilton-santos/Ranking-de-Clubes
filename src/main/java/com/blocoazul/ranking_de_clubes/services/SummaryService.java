@@ -1,5 +1,6 @@
 package com.blocoazul.ranking_de_clubes.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,19 +66,18 @@ public class SummaryService {
 	}
 
 	private Summary generateSummary(RankType rankType, Team team, Integer year, Country country) {
-		int[] summaryTitles = new int[4];
+		int[] summaryTitles = new int[5];
 		Arrays.fill(summaryTitles, 0);
-		int points = 0;
+		BigDecimal points = new BigDecimal("0.0");
 
 		for (Title title : team.getTitles()) {
 			if (title.getSeason() <= year
 					&& (rankType.getPeriod() == null || title.getSeason() > (year - rankType.getPeriod()))) {
-				summaryTitles[title.getTournament().getGroup().getPoints() - 1]++;
-				points += title.getTournament().getGroup().getPoints();
+				summaryTitles[title.getTournament().getGroup().getOrder() - 1]++;
+				points = points.add(title.getTournament().getGroup().getPoints());
 			}
 		}
-		if (points > 0) {
-			ArrayUtils.reverse(summaryTitles);
+		if (points.compareTo(BigDecimal.ZERO) > 0) {
 			Summary summary = new Summary();
 			summary.setTeam(team);
 			summary.setTitles(summaryTitles);

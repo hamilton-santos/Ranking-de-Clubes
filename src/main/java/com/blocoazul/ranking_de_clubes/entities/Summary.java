@@ -1,6 +1,7 @@
 package com.blocoazul.ranking_de_clubes.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.blocoazul.ranking_de_clubes.entities.ids.SummaryId;
@@ -9,6 +10,7 @@ import com.blocoazul.ranking_de_clubes.enums.RankType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -54,7 +56,8 @@ public class Summary implements Serializable, Comparable<Summary> {
 	
 	private int[] titles;
 	
-	private Integer points;
+	@Column(precision = 4, scale = 1)
+	private BigDecimal points;
 
 	public Team getTeam() {
 		return team;
@@ -72,11 +75,11 @@ public class Summary implements Serializable, Comparable<Summary> {
 		this.titles = titles;
 	}
 
-	public Integer getPoints() {
+	public BigDecimal getPoints() {
 		return points;
 	}
 
-	public void setPoints(Integer points) {
+	public void setPoints(BigDecimal points) {
 		this.points = points;
 	}
 	
@@ -143,17 +146,17 @@ public class Summary implements Serializable, Comparable<Summary> {
 	@Override
 	public int compareTo(Summary other) {
 		
-		int diff = 0;
+		BigDecimal diff = new BigDecimal("0.0");
 		
 		if (getPoints() != null && other.getPoints() != null) {
-			diff = other.getPoints() - getPoints();
+			diff = other.getPoints().subtract(getPoints());
 		}
 		
-		if (diff == 0) {
+		if (diff.compareTo(BigDecimal.ZERO) == 0) {
 			return getTeam().getName().compareTo(other.getTeam().getName());
 		}
 		
-		return diff;
+		return diff.compareTo(BigDecimal.ZERO) > 0 ? 1 : -1;
 	}
 	
 	@Override
