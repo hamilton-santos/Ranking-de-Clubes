@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -127,7 +126,7 @@ public class SummaryService {
 
 	private void markTied(Set<Summary> tied) {
 		for (Summary item : tied) {
-			item.setPosition(Float.sum(item.getPosition(), searchElementsTied(item, tied) * 0.01f));
+			item.setPosition(item.getPosition().add(BigDecimal.valueOf(searchElementsTied(item, tied) * 0.01f)));
 		}
 	}
 	
@@ -149,11 +148,11 @@ public class SummaryService {
 			List<Summary> lastYearItems = repository.findByTeam_IdAndSeasonAndRankType(item.getTeam().getId(),
 					item.getSeason() - 1, item.getRankType());
 			Summary lastYearItem = lastYearItems.isEmpty() ? null : lastYearItems.get(0);
-			if (lastYearItem == null || lastYearItem.getPosition() > item.getPosition()) {
+			if (lastYearItem == null || lastYearItem.getPosition().compareTo(item.getPosition()) == 1) {
 				item.setDirection(Direction.UP);
 			} else {
-				if (lastYearItems.get(0).getPosition() < item.getPosition()) {
-					if (item.getPosition() - lastYearItem.getPosition() < 1
+				if (lastYearItems.get(0).getPosition().compareTo(item.getPosition()) == -1) {
+					if (item.getPosition().subtract(lastYearItem.getPosition()).compareTo(BigDecimal.ONE) == -1
 							&& item.getPosition().intValue() == lastYearItem.getPosition().intValue()) {
 						item.setDirection(Direction.CAUTION);
 					} else {

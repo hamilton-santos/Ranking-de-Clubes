@@ -50,7 +50,8 @@ public class Summary implements Serializable, Comparable<Summary> {
 	private Direction direction;
 	
 	@JsonIgnore
-	private Float position;
+	@Column(precision = 4, scale = 2)
+	private BigDecimal position;
 	
 	private String css;
 	
@@ -83,16 +84,16 @@ public class Summary implements Serializable, Comparable<Summary> {
 		this.points = points;
 	}
 	
-	public Float getPosition() {
+	public BigDecimal getPosition() {
 		return position;
 	}
 	
-	public void setPosition(Float position) {
+	public void setPosition(BigDecimal position) {
 		this.position = position;
 	}
 	
 	public void setPosition(Integer position) {
-		this.position = (float) position;
+		this.position = BigDecimal.valueOf(position);
 	}
 	
 	public Integer getPlace() {
