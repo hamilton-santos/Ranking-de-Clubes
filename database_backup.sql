@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2025-05-17 15:01:54
+-- Started on 2025-05-23 18:07:19
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1603,8 +1603,10 @@ INSERT INTO public.titles VALUES (5868, 2025, 'CRYSTAL_PALACE', 'COPA_DA_INGLATE
 INSERT INTO public.titles VALUES (2920, 1976, 'REAL_MADRID', 'CAMPEONATO_ESPANHOL');
 INSERT INTO public.titles VALUES (2921, 1975, 'REAL_MADRID', 'CAMPEONATO_ESPANHOL');
 INSERT INTO public.titles VALUES (2922, 1974, 'BARCELONA', 'CAMPEONATO_ESPANHOL');
+INSERT INTO public.titles VALUES (5869, 2025, 'TOTTENHAM', 'UEFA_EUROPA_LEAGUE');
 INSERT INTO public.titles VALUES (2924, 1972, 'REAL_MADRID', 'CAMPEONATO_ESPANHOL');
 INSERT INTO public.titles VALUES (2925, 1971, 'VALENCIA', 'CAMPEONATO_ESPANHOL');
+INSERT INTO public.titles VALUES (5870, 2025, 'NAPOLI', 'CAMPEONATO_ITALIANO');
 INSERT INTO public.titles VALUES (2927, 1969, 'REAL_MADRID', 'CAMPEONATO_ESPANHOL');
 INSERT INTO public.titles VALUES (2928, 1968, 'REAL_MADRID', 'CAMPEONATO_ESPANHOL');
 INSERT INTO public.titles VALUES (2929, 1967, 'REAL_MADRID', 'CAMPEONATO_ESPANHOL');
@@ -2645,7 +2647,7 @@ INSERT INTO public.tournaments VALUES ('SUPERCOPA_INTERNACIONAL', 'SUPERCOPA', '
 -- Name: titles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.titles_id_seq', 5868, true);
+SELECT pg_catalog.setval('public.titles_id_seq', 5870, true);
 
 
 --
@@ -2756,7 +2758,7 @@ ALTER TABLE ONLY public.titles
     ADD CONSTRAINT team FOREIGN KEY (team_id) REFERENCES public.teams(id) ON UPDATE CASCADE NOT VALID;
 
 
--- Completed on 2025-05-17 15:01:54
+-- Completed on 2025-05-23 18:07:19
 
 --
 -- PostgreSQL database dump complete
